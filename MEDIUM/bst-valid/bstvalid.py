@@ -57,6 +57,7 @@ less than its parent, 6, but it's also less than its grandparent,
     >>> t.is_valid()
     False
 """
+import sys
 
 
 class Node:
@@ -70,11 +71,34 @@ class Node:
         self.data = data
 
     def is_valid(self):
-        """Is this tree a valid BST?"""
+        """Is this tree a valid BST"""
+
+        return self.is_valid_helper(- sys.maxsize - 1, sys.maxsize)
+
+    def is_valid_helper(self, low, high):
+
+        if not self.left and self.right:
+            return True
+
+        else:
+            left_valid = True
+            right_valid = True
+            if self.left:
+                if self.left.data < self.data and self.left.data in range(low, high + 1):
+                    left_valid = self.left.is_valid_helper(low, self.data)
+                else:
+                    return False
+            if self.right:
+                if self.right.data > self.data and self.right.data in range(low, high + 1):
+                    right_valid = self.right.is_valid_helper(self.data, high)
+                else:
+                    return False
+
+            return left_valid and right_valid
+
 
 if __name__ == "__main__":
     import doctest
 
     if doctest.testmod().failed == 0:
         print("\n*** ALL TESTS PASSED; THAT'S VALID!\n")
-

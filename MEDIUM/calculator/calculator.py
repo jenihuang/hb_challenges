@@ -19,11 +19,38 @@ Let's make sure we have non-commutative operators working:
 
     >>> calc("/ 6 - 4 2")  # 6 / (4 - 2)
     3
+
+    >>> calc("- - 9 6 - 3 2") #(9 - 6) - (3 - 2)
+    2
 """
 
 
 def calc(s):
     """Evaluate expression."""
+
+    items = s.split(' ')
+
+    stack = []
+
+    while items:
+        current = items.pop()
+        if current not in ['+', '-', '*', '/']:
+            stack.append(current)
+        else:
+            n1 = int(stack.pop())
+            n2 = int(stack.pop())
+            if current == '+':
+                result = n1 + n2
+            elif current == '-':
+                result = n1 - n2
+            elif current == '*':
+                result = n1 * n2
+            else:
+                result = int(n1 / n2)
+
+            stack.append(result)
+
+    return stack[0]
 
 
 if __name__ == '__main__':

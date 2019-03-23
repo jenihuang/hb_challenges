@@ -102,6 +102,22 @@ def make_triangle(levels):
 def maxpath(nodes):
     """Given list of nodes in triangle, return high-scoring path."""
 
+    return maxpath_helper(nodes[0])
+
+
+def maxpath_helper(node):
+
+    if not node.children:
+        return node.value
+    else:
+        highest = 0
+        for child in node.children:
+            c_value = maxpath_helper(child)
+            if c_value > highest:
+                highest = c_value
+        highest += node.value
+        return highest
+
 
 if __name__ == '__main__':
     import doctest

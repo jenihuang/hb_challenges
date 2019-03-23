@@ -42,6 +42,23 @@ def coins(num_coins):
 
     This should return a set of the unique amounts of change possible.
     """
+    return coins_helper(num_coins, 0)
+
+        
+def coins_helper(num,calc):
+    s = set()
+    if not num:
+        s.add(calc)
+        return s
+    else:
+        penny = coins_helper(num-1,calc+1)
+        dime = coins_helper(num-1,calc+10)
+        s = s.union(penny)
+        s = s.union(dime)
+        return s
+
+
+
 
 
 if __name__ == '__main__':

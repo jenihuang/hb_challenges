@@ -54,6 +54,31 @@ class Node(object):
         them.
         """
 
+        if not self.children:
+            return 0
+        else:
+            total = 0
+            for c in self.children:
+                count = c.count_employees() + 1
+                total += count
+
+        return total
+
+    def count_employees_nonrecursive(self):
+
+        count = 0
+        q = self.children[:]
+        while q:
+            child = q.pop()
+            count += 1
+            for grandchild in child.children:
+                q.append(grandchild)
+
+        return count
+
+
+
+
 
 if __name__ == '__main__':
     import doctest

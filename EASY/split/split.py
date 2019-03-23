@@ -27,15 +27,24 @@ For example:
 
 def split(astring, splitter):
     """Split a string by splitter and return list of splits."""
-    results = []
-    test_str = ''
 
-    for i in range(len(astring)):
-        for j in range(len(splitter)):
-            if i == j:
-                continue
-            else:
-                test_str += astring[i]
+    split_list = []
+
+    length = len(splitter)
+    start = 0
+
+    found = astring.find(splitter, start)
+    if found == -1:
+        return [astring]
+
+    while found >= 0:
+        split_list.append(astring[start:found])
+        start = found + length
+        found = astring.find(splitter, start)
+
+    split_list.append(astring[start:])
+
+    return split_list
 
 
 if __name__ == '__main__':

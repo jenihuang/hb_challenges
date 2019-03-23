@@ -48,13 +48,34 @@ If you receive a string with no brackets, consider it balanced::
 
 
 def has_balanced_brackets(phrase):
-    """Does a given string have balanced pairs of brackets?
+  """Does a given string have balanced pairs of brackets?
 
-    Given a string as input, return True or False depending on whether the
-    string contains balanced (), {}, [], and/or <>.
-    """
+  Given a string as input, return True or False depending on whether the
+  string contains balanced (), {}, [], and/or <>.
+  """
+  stack = []
+  opens = {'(', '{', '[', '<'}
+  matches = {')': '(', '}': '{', ']': '[', '>': '<'}
+
+  for char in phrase:
+    if char in opens:
+      stack.append(char)
+    elif char in matches:
+      if not stack:
+        return False
+      else:
+        out = stack.pop()
+        opening = matches[char]
+        if out != opening:
+          return False
+
+  if not stack:
+    return True
+  else:
+    return False
+
 
 if __name__ == '__main__':
-    import doctest
-    if doctest.testmod().failed == 0:
-        print("\n*** ALL TESTS PASSED. YOU CAUGHT ALL THE STRAY BRACKETS!\n")
+  import doctest
+  if doctest.testmod().failed == 0:
+    print("\n*** ALL TESTS PASSED. YOU CAUGHT ALL THE STRAY BRACKETS!\n")

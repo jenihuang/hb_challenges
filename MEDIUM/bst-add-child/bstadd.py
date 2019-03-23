@@ -88,9 +88,25 @@ class Node(object):
 
     def insert(self, new_data):
         """Insert new node with `new_data` to BST tree rooted here."""
+        if self.data > new_data and not self.left:
+            self.left = Node(new_data)
+        elif self.data < new_data and not self.right:
+            self.right = Node(new_data)
+        else:
+            if self.data > new_data:
+                self.left.insert(new_data)
+            else:
+                self.right.insert(new_data)
+
+
+# t = Node(4, Node(2, Node(1), Node(3)), Node(7, Node(5), Node(8)))
+# print(t)
+# t.insert(9)
+# print(t)
+
 
 if __name__ == "__main__":
     import doctest
-    
+
     if doctest.testmod().failed == 0:
         print("\n*** ALL TESTS PASSED. NODES ADDED SUCCESSFULLY!\n")

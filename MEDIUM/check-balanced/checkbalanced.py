@@ -107,6 +107,22 @@ class BinaryNode(object):
     def is_balanced(self):
         """Is the tree at this node balanced?"""
 
+        left = self.is_balanced_helper(self.left)
+        right = self.is_balanced_helper(self.right)
+
+        if abs(left - right) > 1:
+            return False
+        else:
+            return True
+
+    def is_balanced_helper(self, node):
+        if not node:
+            return 0
+        else:
+            left_count = 1 + self.is_balanced_helper(node.left)
+            right_count = 1 + self.is_balanced_helper(node.right)
+            return max(left_count, right_count)
+
 
 if __name__ == '__main__':
     import doctest

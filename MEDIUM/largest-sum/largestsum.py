@@ -36,8 +36,51 @@ than pick nothing!):
 """
 
 
+# def largest_sum(nums):
+#     """recursive call each array and break off beginning and end
+#     get sum of current, replace out array if needed"""
+
+#     return largest_sum_helper(nums, [])
+
+
+# def largest_sum_helper(nums, output):
+
+#     if not nums:
+#         return output
+#     if sum(nums) < 0:
+#         return []
+#     else:
+#         current_sum = sum(nums)
+#         output_sum = sum(output)
+#         if current_sum > output_sum:
+#             left = largest_sum_helper(nums[1:], nums)
+#             right = largest_sum_helper(nums[:-1], nums)
+#             if sum(left) > sum(right):
+#                 return left
+#             else:
+#                 return right
+#         else:
+#             left = largest_sum_helper(nums[1:], output)
+#             right = largest_sum_helper(nums[:-1], output)
+#             if sum(left) > sum(right):
+#                 return left
+#             else:
+#                 return right
+
+
 def largest_sum(nums):
     """Find subsequence with largest sum."""
+    max_nums = []
+    added_nums = []
+
+    for num in nums:
+        added_nums.append(num)
+        if sum(added_nums) <= 0:
+            added_nums = []
+        if sum(added_nums) > sum(max_nums):
+            max_nums = added_nums[:]
+
+    return max_nums
 
 
 if __name__ == '__main__':

@@ -23,7 +23,7 @@ the 3 spaces that came after world, etc:
 
 To prove the alternate solution works:
 
-    >>> rev2(" hello  world   ")
+    >>> rev(" hello  world   ")
     '   world  hello '
 
 """
@@ -31,6 +31,10 @@ To prove the alternate solution works:
 
 def rev(s):
     """Reverse word-order in string, preserving spaces."""
+
+    t = s.split(' ')
+
+    return ' '.join(t[::-1])
 
 
 if __name__ == '__main__':

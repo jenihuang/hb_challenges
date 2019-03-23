@@ -46,16 +46,16 @@ Let's create this tree::
 
 Let's find the cousins for b::
 
-    >>> b.cousins() == {c, d}
+    >>> b.cousins() == {'c', 'd'}
     True
 
-    >>> c.cousins() == {b, d}
+    >>> c.cousins() == {'b', 'd'}
     True
 
-    >>> e.cousins() == {f, g, h, i, j}
+    >>> e.cousins() == {'f', 'g', 'h', 'i', 'j'}
     True
 
-    >>> k.cousins() == {l}
+    >>> k.cousins() == {'l'}
     True
 
 The root node has no cousins::
@@ -102,6 +102,33 @@ class Node(object):
 
     def cousins(self):
         """Find nodes on the same level as this node."""
+        current = self
+        count = 0
+
+        while current.parent:
+            current = current.parent
+            count += 1
+
+        root = current
+
+        all_cousins = cousins_helper(root, count, 0)
+        all_cousins.remove(self.data)
+        return all_cousins
+
+
+def cousins_helper(node, stop_count, count):
+
+    cousins = set()
+
+    if stop_count == count:
+        cousins.add(node.data)
+        return cousins
+
+    if node.children:
+        for child in node.children:
+            s = cousins_helper(child, stop_count, count + 1)
+            cousins |= s
+    return cousins
 
 
 if __name__ == '__main__':

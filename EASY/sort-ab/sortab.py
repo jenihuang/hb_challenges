@@ -27,33 +27,43 @@ def sort_ab(a, b):
     """
     # O(n) time and space?
 
-    results = []
+    # results = []
+    # index_a = 0
+    # index_b = 0
 
-    # while a and b:
-    #     if a[0] < b[0]:
-    #         results.append(a[0])
-    #         a.pop(0)
+    # while index_a <= (len(a) - 1) and index_b <= (len(b) - 1):
+    #     if a[index_a] < b[index_b]:
+    #         results.append(a[index_a])
+    #         index_a += 1
+
     #     else:
-    #         results.append(b[0])
-    #         b.pop(0)
-    index_a = 0
-    index_b = 0
+    #         results.append(b[index_b])
+    #         index_b += 1
 
-    while index_a <= (len(a) - 1) and index_b <= (len(b) - 1):
-        if a[index_a] < b[index_b]:
-            results.append(a[index_a])
-            index_a += 1
+    # if index_a < len(a) - 1:
+    #     results.extend(a[index_a:])
+    # else:
+    #     results.extend(b[index_b:])
 
-        else:
-            results.append(b[index_b])
-            index_b += 1
+    # return results
 
-    if index_a < len(a) - 1:
-        results.extend(a[index_a:])
+    if not a and not b:
+        return []
+    elif not a:
+        return b
+    elif not b:
+        return a
     else:
-        results.extend(b[index_b:])
-
-    return results
+        if a[-1] > b[-1]:
+            largest = a.pop()
+            results = sort_ab(a, b)
+            results.append(largest)
+            return results
+        else:
+            largest = b.pop()
+            results = sort_ab(a, b)
+            results.append(largest)
+            return results
 
 
 if __name__ == '__main__':

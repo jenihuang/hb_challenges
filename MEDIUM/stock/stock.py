@@ -50,6 +50,19 @@ def best(prices):
     If no profit is possible, return 0.
     """
 
+    profit = 0
+    min_price = prices[0]
+
+    for price in prices:
+        if price < min_price:
+            min_price = price
+        else:
+            dollars = price - min_price
+            if dollars > profit:
+                profit = dollars
+
+    return profit
+
 
 if __name__ == '__main__':
     import doctest

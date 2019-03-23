@@ -74,6 +74,7 @@ def add_linked_lists(l1, l2):
 
     Returns: head node of linked list of sum in "reverse-digit" format.
     """
+    # traverse
 
 
 if __name__ == '__main__':

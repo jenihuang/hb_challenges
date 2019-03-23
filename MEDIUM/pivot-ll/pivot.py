@@ -29,7 +29,7 @@ half (with other greater-than-or-equal-to values):
 class Node(object):
     """Node in a linked list."""
 
-    def __init__(self, data):
+    def __init__(self, data=None):
         self.data = data
         self.next = None
 
@@ -97,4 +97,34 @@ class LinkedList(object):
 
     def pivot(self, pivot):
         """Pivot list around value."""
+        # break down into three new sections
+        start_h = start_t = Node()
+        # mid_h = mid_t = Node()
+        end_h = end_t = Node()
 
+        current = self.head
+
+        while current:
+            # if current.data == pivot:
+            #     mid_t.next = current
+            #     mid_t = current
+            if current.data >= pivot:
+                end_t.next = current
+                end_t = current
+            else:
+                start_t.next = current
+                start_t = current
+
+            current = current.next
+
+        end_t.next = None
+        # mid_t.next = end_h.next
+        start_t.next = end_h.next
+
+        self.head = start_h.next
+
+
+if __name__ == '__main__':
+    import doctest
+    if doctest.testmod().failed == 0:
+        print("\n*** ALL TESTS PASSED; GREAT JOB! ***\n")

@@ -53,10 +53,73 @@ def check(king, queen):
     These coordinates are given as a letter A-H for the columns and 1-8 for the
     row, like "D6" and "B7":
     """
+    if check_horizontal(king,queen) or check_vertical(king,queen) or check_ldiagonal(king,queen) or check_rdiagonal(king,queen):
+        return True
+
+    else:
+        return False
+
+
+def check_horizontal(king, queen):
+    if king[1] == queen[1]:
+        return True
+    else:
+        return False
+
+
+def check_vertical(king, queen):
+    if king[0] == queen[0]:
+        return True
+    else:
+        return False
+
+
+def check_ldiagonal(king, queen):
+    positions = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    q_letter = queen[0]
+    q_num = int(queen[1])
+    letter_index = positions.index(queen[0])
+
+    num = q_num
+    for i in range(letter_index + 1, 8):
+        letter = positions[i]
+        num += 1
+        if king == (letter + str(num)):
+            return True
+
+    num = q_num
+    for i in range(letter_index - 1, -1, -1):
+        letter = positions[i]
+        num -= 1
+        if king == (letter + str(num)):
+            return True
+
+    return False
+
+def check_rdiagonal(king, queen):
+    positions = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    q_letter = queen[0]
+    q_num = int(queen[1])
+    letter_index = positions.index(queen[0])
+
+    num = q_num
+    for i in range(letter_index + 1, 8):
+        letter = positions[i]
+        num -= 1
+        if king == (letter + str(num)):
+            return True
+
+    num = q_num
+    for i in range(letter_index - 1, -1, -1):
+        letter = positions[i]
+        num += 1
+        if king == (letter + str(num)):
+            return True
+
+    return False
 
 
 if __name__ == '__main__':
     import doctest
     if doctest.testmod().failed == 0:
         print("\n*** ALL TESTS PASSED. EXCELLENT GAME!\n")
-
